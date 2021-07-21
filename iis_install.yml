@@ -1,0 +1,30 @@
+---
+- hosts: azurevms
+  gather_facts: no
+  tasks:
+  - name: Install IIS features
+    win_feature:
+      name: 
+        - Web-Server
+        - Web-Common-Http
+        - Web-Mgmt-Service
+      include_management_tools: yes
+      state: present
+      
+  - name: Enable IIS remote management
+    win_regedit:
+      path: HKLM:\SOFTWARE\Microsoft\WebManagement\Server
+      name: EnableRemoteManagement
+      data: 1
+      type: dword
+      
+  - name: Start and set management service to auto
+    win_service:
+      name: WMSvc
+      start_mode: auto
+      state: started
+      
+  - name: Create logging directory
+    win_file:
+      path: c:\logs
+      state: directory

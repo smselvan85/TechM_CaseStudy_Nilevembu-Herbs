@@ -1,0 +1,11 @@
+[azurevms]
+104.43.9.25
+23.97.57.201
+
+[azurevms:vars]
+ansible_user=vmadmin
+ansible_password=vmserver@2021
+ansible_connection=winrm
+ansible_winrm_transport=basic
+ansible_winrm_server_cert_validation=ignore
+ansible_port=5986
